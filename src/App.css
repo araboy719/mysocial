@@ -10,18 +10,6 @@
   grid-gap: 10px;
   
 }
-.header {
-  grid-area: header;
-  background-color: darkorange;
-}
-.header img{
-  width: 130px;
-}
-.nav {
-  grid-area: nav;
-  background-color: greenyellow;
-  height: 100%;
-}
 .content {
   grid-area: content;
   background-color: dimgrey;

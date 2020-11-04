@@ -1,31 +1,15 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+import Profile from "./components/content/Profile/Profile";
+import Header from './components/Header/Header';
+import Navbar from "./components/Navbar/Navbar";
 
 const App = () => {
   return (
     <div className="app-wrapper">
-      <header className='header'>
-        <img src='https://placeit-assets1.s3-accelerate.amazonaws.com/custom-pages/fitness-logo-maker/fitness-logo-template-with-an-abstract-energetic-human-illustration-2457a-1024x1024.png'>
-        </img>
-      </header>
-      <nav className='nav'>
-        <div>
-          <a>Profile</a>
-        </div>
-        <div>
-          <a>Messeges</a>
-        </div>
-        <div>
-          <a>News</a>
-        </div>
-        <div>
-          <a>Music</a>
-        </div>
-        <div>
-          <a>Setting</a>
-        </div>
-      </nav>
-      <div className='content'></div>
+      <Header />
+      <Navbar />
+      <Profile />
     </div>
   );
 }
