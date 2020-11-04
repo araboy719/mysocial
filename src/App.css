@@ -1,17 +1,16 @@
-.app-wrapper { 
+html {
+  background-image: url(https://images.pexels.com/photos/998641/pexels-photo-998641.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);
+}
+
+.app-wrapper {
   display: grid;
-  margin: 0 10%;
+  margin: 0 15%;
  
  grid-template-areas:
 "header header"
 "nav content";
- grid-template-rows: 120px 1fr;
-  grid-template-columns: 2fr 10fr;
+ grid-template-rows: 80px 250%;
+  grid-template-columns: 3fr 10fr;
   grid-gap: 10px;
   
-}
-.content {
-  grid-area: content;
-  background-color: dimgrey;
-  height: 100%;
 }
