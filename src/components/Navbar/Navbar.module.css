@@ -3,3 +3,18 @@
   background-color: #696969;
   height: 100%;
 }
+
+.item{
+  background: #dedede;
+  margin-top: 5px;
+  border-radius: 7px; 
+}
+
+.item a{
+  text-decoration: none;
+  display: block;
+}
+
+.active{
+  background: white;
+}

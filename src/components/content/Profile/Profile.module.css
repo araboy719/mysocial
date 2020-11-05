@@ -3,3 +3,9 @@
   background-color: #dedede;
   height: 100%;
 }
+
+.content img{
+  margin: 10px;
+  height: 150px;
+  border: 3px solid gray;
+}
