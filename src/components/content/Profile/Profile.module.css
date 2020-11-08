@@ -6,6 +6,6 @@
 
 .content img{
   margin: 10px;
-  height: 150px;
+  width: 50%;
   border: 3px solid gray;
 }

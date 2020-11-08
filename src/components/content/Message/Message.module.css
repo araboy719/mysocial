@@ -1,0 +1,28 @@
+.content {
+  grid-area: content;
+  background-color: #dedede;
+  height: 100%;
+  border-radius: 10px;
+  display: grid;
+
+  grid-template-areas:
+"dialogs messages";
+
+grid-template-columns: 1fr 4fr;
+grid-gap: 5%;
+  
+}
+
+.dialogs{
+  grid-area: dialogs;
+}
+.dialogs .dialog{
+  border: 1px solid grey;
+  margin-top: 5px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+}
+.messages{
+  grid-area: messages;
+}

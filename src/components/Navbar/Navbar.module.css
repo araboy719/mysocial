@@ -13,8 +13,11 @@
 .item a{
   text-decoration: none;
   display: block;
+  color: black;
 }
 
 .active{
-  background: white;
+  background: #c7c1c1;
+  margin-top: 5px;
+  border-radius: 7px; 
 }

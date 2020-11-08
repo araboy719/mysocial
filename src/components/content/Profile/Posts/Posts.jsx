@@ -5,8 +5,8 @@ import s from './Posts.module.css';
 const Posts = () => {
     return (
         <div className={s.posts}>
-            <Post messege = "Hi it is my first post" />
-            <Post messege = "i am study React" />
+            <Post message = "Hi it is my first post" />
+            <Post message = "i am study React" />
         </div>
     )
 }
