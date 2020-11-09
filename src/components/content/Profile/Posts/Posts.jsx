@@ -2,11 +2,15 @@ import React from 'react';
 import Post from './Post/Post';
 import s from './Posts.module.css';
 
-const Posts = () => {
+
+
+const Posts = (props) => {
+
+    console.log(props);
+    let PostItem = props.posts.map(posts =><Post message ={posts.message} id={posts.id} />)
     return (
         <div className={s.posts}>
-            <Post message = "Hi it is my first post" />
-            <Post message = "i am study React" />
+            {PostItem}
         </div>
     )
 }

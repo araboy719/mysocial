@@ -6,9 +6,9 @@ import s from './Message.module.css';
 
 const Message = (props) => {
 console.log(props)
-    let DialogItems = props.dialog.map(dialog => <Dialog name={dialog.name} id={dialog.id} />);
+    let DialogItems = props.MessageData.dialogs.map(dialogs => <Dialog name={dialogs.name} id={dialogs.id} />);
     
-    let ChatItem = props.chat.map(chat => <Chat text={chat.text} id={chat.id} />)
+    let ChatItem = props.MessageData.chat.map(chat => <Chat text={chat.text} id={chat.id} />)
     return (
         <div className={s.content}>
             <div className={s.dialogs}>
