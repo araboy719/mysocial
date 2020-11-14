@@ -6,8 +6,10 @@
   display: grid;
 
   grid-template-areas:
-"dialogs messages";
+"dialogs messages"
+"dialogs addtext";
 
+grid-template-rows: 4fr 1fr;
 grid-template-columns: 1fr 4fr;
 grid-gap: 5%;
   
@@ -25,4 +27,8 @@ grid-gap: 5%;
 }
 .messages{
   grid-area: messages;
+}
+
+.text{
+  grid-area: addtext;
 }

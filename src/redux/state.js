@@ -1,3 +1,5 @@
+import { rerenderEntireTree } from "../render";
+
 let state = {
   PageMessage: {
     dialogs: [
@@ -17,6 +19,7 @@ let state = {
       { id: 5, text: "Hi" },
       { id: 6, text: "Yo" },
     ],
+    newMessage: '',
   },
   PageProfile: {
     posts: [
@@ -24,9 +27,47 @@ let state = {
       { id: 2, message: "i am study React" },
       { id: 3, message: "Now i am use 'props'" },
     ],
+    newPostText: ''
 
   },
-
-
 };
+
+export let AddPost = () => {
+  let NewPost = {
+    id: 4,
+    message: state.PageProfile.newPostText,
+  };
+
+  state.PageProfile.posts.push(NewPost);
+
+  state.PageProfile.newPostText = '';
+  rerenderEntireTree(state);
+}
+
+export let UpdateNewPostText = (NewText) => {
+
+  state.PageProfile.newPostText = (NewText);
+
+  rerenderEntireTree(state);
+
+}
+
+export let AddMessage = () => {
+  let NewMessage = {
+    id: 7,
+    text: state.PageMessage.newMessage,
+  };
+
+  state.PageMessage.chat.push(NewMessage);
+  state.PageMessage.newMessage = '';
+  rerenderEntireTree(state);
+} 
+
+export let UpdateNewMessage = (NewText) => {
+
+  state.PageMessage.newMessage = (NewText);
+  
+  rerenderEntireTree(state);
+} 
+
 export default state;

@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar/Navbar";
 
 
 const App = (props) => {
+
   return (
     <BrowserRouter>
       <div className="app-wrapper">
@@ -16,10 +17,16 @@ const App = (props) => {
         <Navbar />
         <Route path='/profile'
           render={() => <Profile
-            ProfileData={props.state.PageProfile} />} />
+            ProfileData={props.state.PageProfile}
+            AddPost={props.AddPost}
+            UpdateNewPostText={props.UpdateNewPostText} />} />
         <Route path='/dialogs'
-          render={() => <Message
-            MessageData={props.state.PageMessage} />} />
+          render={() => 
+          <Message
+            MessageData={props.state.PageMessage}
+            AddMessage={props.AddMessage}
+            UpdateNewMessage={props.UpdateNewMessage}
+            />} />
       </div>
     </BrowserRouter>
   );
