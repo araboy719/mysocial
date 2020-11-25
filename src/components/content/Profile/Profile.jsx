@@ -1,22 +1,24 @@
 import React from 'react';
+import { AddPostAclionCreator, changePostTextActionCreator } from '../../../redux/Profile-Reducer';
 import Posts from './Posts/Posts';
 import s from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-const Profile = (props) => {
 
+const Profile = (props) => {
 
     let newPost = React.createRef();
 
     let AddPost = () => {
         
-    props.AddPost();
+    props.dispatch(AddPostAclionCreator())
     }
-
     let ChangePostText = () => {
         let text = newPost.current.value;
+
+        let action = changePostTextActionCreator(text);
         
-        props.UpdateNewPostText(text);
+        props.dispatch(action);
     }
 
     return (

@@ -18,14 +18,12 @@ const App = (props) => {
         <Route path='/profile'
           render={() => <Profile
             ProfileData={props.state.PageProfile}
-            AddPost={props.AddPost}
-            UpdateNewPostText={props.UpdateNewPostText} />} />
+            dispatch={props.dispatch} />  } />
         <Route path='/dialogs'
           render={() => 
           <Message
             MessageData={props.state.PageMessage}
-            AddMessage={props.AddMessage}
-            UpdateNewMessage={props.UpdateNewMessage}
+            dispatch={props.dispatch}
             />} />
       </div>
     </BrowserRouter>

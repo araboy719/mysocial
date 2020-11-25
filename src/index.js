@@ -1,11 +1,26 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import './index.css';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { rerenderEntireTree } from './render';
-import state from './redux/state';
+import store from './redux/state.js';
 
 
-rerenderEntireTree(state);
-console.log(state);
+
+let rerenderEntireTree = (state) => {
+  console.log(state);
+  ReactDOM.render(
+    <React.StrictMode>
+      <App state={store.getState()}
+       dispatch={store.dispatch.bind(store)}  />
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
+
+rerenderEntireTree(store.getState);
+
+store.subscribe (rerenderEntireTree);
 
 
 

@@ -1,7 +1,11 @@
 import React from 'react';
+import { SendMessageActionCreator, updateTextMessageActionCreator } from '../../../redux/Message-Reducer';
 import Chat from './Chat/Chat';
 import Dialog from './Dialogs/Dialogs';
 import s from './Message.module.css';
+
+
+
 
 
 const Message = (props) => {
@@ -14,12 +18,13 @@ const Message = (props) => {
 
     let SendMessage = () => {
 
-        props.AddMessage();
+        props.dispatch(SendMessageActionCreator());
     }
     let MessageOnchange = () => {
         let text = CreateMessage.current.value;
 
-        props.UpdateNewMessage(text);
+        let actiot = updateTextMessageActionCreator(text);
+        props.dispatch(actiot);
     };
     return (
         <div className={s.content}>
