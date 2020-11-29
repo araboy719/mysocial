@@ -22,9 +22,9 @@ const App = (props) => {
         <Route path='/dialogs'
           render={() => 
           <Message
+
             MessageData={props.state.PageMessage}
-            AddMessage={props.AddMessage}
-            UpdateNewMessage={props.UpdateNewMessage}
+            dispatch={props.dispatch}
             />} />
       </div>
   );

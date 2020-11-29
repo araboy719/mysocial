@@ -1,3 +1,13 @@
+import MessageReducer from "./Message-Reducer";
+import ProfileReducer from "./Profile-Reducer";
+
+const SEND_MESSAGE = 'SEND-MESSEGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
+
 let store = {
   _state: {
     PageMessage: {
@@ -42,73 +52,18 @@ let store = {
   },
 
   dispatch(action) {
-    if (action.type === 'ADD-POST') {
-      let NewPost = {
-        id: 4,
-        message: this._state.PageProfile.newPostText,
-      };
 
-      this._state.PageProfile.posts.push(NewPost);
-
-      this._state.PageProfile.newPostText = '';
-      this._callSubscriber(this._state);
-
-    } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-
-      this._state.PageProfile.newPostText = (action.NewText);
-
-      this._callSubscriber(this._state);
-    } else if (action.type === 'SEND-MESSEGE') {
-      let NewMessage = {
-        id: 7,
-        text: this._state.PageMessage.newMessage,
-      };
-  
-      this._state.PageMessage.chat.push(NewMessage);
-      this._state.PageMessage.newMessage = '';
-      this._callSubscriber(this._state);
-    }else if ( action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
-      // this._state.PageMessage.newMessage = (NewText);
-
-      this._callSubscriber(this._state);
-    }
-  },
-
-  AddPost() {
-    let NewPost = {
-      id: 4,
-      message: this._state.PageProfile.newPostText,
-    };
-
-    this._state.PageProfile.posts.push(NewPost);
-
-    this._state.PageProfile.newPostText = '';
-    this._callSubscriber(this._state);
-  },
-  UpdateNewPostText(NewText) {
-    this._state.PageProfile.newPostText = (NewText);
-
+    this._state.PageMessage = MessageReducer(this._state.PageMessage, action );
+    this._state.PageProfile = ProfileReducer(this._state.PageProfile, action );
+    
     this._callSubscriber(this._state);
 
   },
-  AddMessage() {
-    let NewMessage = {
-      id: 7,
-      text: this._state.PageMessage.newMessage,
-    };
-
-    this._state.PageMessage.chat.push(NewMessage);
-    this._state.PageMessage.newMessage = '';
-    this._callSubscriber(this._state);
-  },
-  UpdateNewMessage(NewText) {
-
-    this._state.PageMessage.newMessage = (NewText);
-
-    this._callSubscriber(this._state);
-  },
-
 }
+
+
+
+
 
 
 window.store = store;
