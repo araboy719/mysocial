@@ -8,9 +8,9 @@ import Navbar from "./components/Navbar/Navbar";
 
 
 const App = (props) => {
-
+  
   return (
-    <BrowserRouter>
+    
       <div className="app-wrapper">
         <Header />
 
@@ -18,8 +18,7 @@ const App = (props) => {
         <Route path='/profile'
           render={() => <Profile
             ProfileData={props.state.PageProfile}
-            AddPost={props.AddPost}
-            UpdateNewPostText={props.UpdateNewPostText} />} />
+            dispatch={props.dispatch} />} />
         <Route path='/dialogs'
           render={() => 
           <Message
@@ -28,7 +27,6 @@ const App = (props) => {
             UpdateNewMessage={props.UpdateNewMessage}
             />} />
       </div>
-    </BrowserRouter>
   );
 }
 
