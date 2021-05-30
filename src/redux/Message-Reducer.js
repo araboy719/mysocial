@@ -1,20 +1,46 @@
-const messageReducer = (state, action) => {
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
 
-    if (action.type === 'ADD-MESSAGE') {
-        let NewMessage = {
-            id: 7,
-            text: state.newMessage,
-        };
-
-        state.chat.push(NewMessage);
-        state.newMessage = '';
-    } else if (action.type === 'UPDATE-NEW-MESSAGE') {
-        state.newMessage = (action.newText);
-    }
-    return state;
-
+const initialState = {
+    dialogs: [
+        { id: 1, name: 'Dimych' },
+        { id: 2, name: 'Artur' },
+        { id: 3, name: 'Ira' },
+        { id: 4, name: 'Zohan' },
+        { id: 5, name: 'Kolya' },
+        { id: 6, name: 'Tima' },
+        { id: 7, name: 'Sasha' },
+        { id: 8, name: 'Ara' },],
+    chat: [
+        { id: 1, text: "Hi" },
+        { id: 2, text: "HAllo" },
+        { id: 3, text: "My Name it is Jony" },
+        { id: 4, text: "How are you" },
+        { id: 5, text: "Hi" },
+        { id: 6, text: "Yo" },
+    ],
+    newMessage: '',
 }
 
+
+const messageReducer = (state = initialState, action) => {
+
+    switch (action.type) {
+        case ADD_MESSAGE:
+            let NewMessage = {
+                id: 7,
+                text: state.newMessage,
+            };
+            state.chat.push(NewMessage);
+            state.newMessage = '';
+            return state;
+        case UPDATE_NEW_MESSAGE:
+            state.newMessage = (action.newText);
+            return state;
+        default:
+            return state;
+    }
+}
 
 export const SendMessageActionCreator = () => {
     return { type: 'ADD-MESSAGE' }

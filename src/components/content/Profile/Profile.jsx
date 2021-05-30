@@ -6,7 +6,6 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 
 const Profile = (props) => {
-
     let newPost = React.createRef();
 
     let AddPost = () => {
