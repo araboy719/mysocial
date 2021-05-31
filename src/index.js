@@ -14,13 +14,11 @@ let rerenderEntireTree = (state) => {
     </React.StrictMode>,
     document.getElementById('root')
   );
-  debugger;
 }
 
 rerenderEntireTree(store.getState());
 
 store.subscribe (() => {
-  debugger;
   let state = store.getState();
   rerenderEntireTree(state);
 });
