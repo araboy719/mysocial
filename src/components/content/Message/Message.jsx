@@ -5,9 +5,10 @@ import s from './Message.module.css';
 
 
 const Message = (props) => {
-    let DialogItems = props.dialogs.map(dialogs => <Dialog name={dialogs.name} id={dialogs.id} />);
+    let PageMessage = props.PageMessage;
+    let DialogItems = PageMessage.dialogs.map(dialogs => <Dialog name={dialogs.name} id={dialogs.id} />);
 
-    let ChatItem = props.chat.map(chat => <Chat text={chat.text} id={chat.id} />)
+    let ChatItem = PageMessage.chat.map(chat => <Chat text={chat.text} id={chat.id} />)
 
     let CreateMessage = React.createRef();
 
@@ -25,7 +26,7 @@ const Message = (props) => {
             </div>
             <div className={s.text}>
                 <div>
-                    <textarea onChange={MessageOnchange} ref={CreateMessage} value={props.newTextMessage} />
+                    <textarea onChange={MessageOnchange} ref={CreateMessage} value={PageMessage.newMessage} />
                 </div>
                 <div>
                     <button onClick={props.sendNewMessage}>SEND</button>

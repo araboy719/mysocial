@@ -8,10 +8,10 @@ import { Provider } from 'react-redux';
 
 
 
-let rerenderEntireTree = (state) => {
+let rerenderEntireTree = () => {
   ReactDOM.render(
     <React.StrictMode>
-      <Provider value={store}>
+      <Provider store={store}>
         <App />
       </Provider>
     </React.StrictMode>,
@@ -19,11 +19,10 @@ let rerenderEntireTree = (state) => {
   );
 }
 
-rerenderEntireTree(store.getState());
+rerenderEntireTree();
 
 store.subscribe(() => {
-  let state = store.getState();
-  rerenderEntireTree(state);
+  rerenderEntireTree();
 });
 
 

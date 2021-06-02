@@ -1,30 +1,25 @@
-import React from 'react';
+import { connect } from 'react-redux';
 import { AddPostAclionCreator, changePostTextActionCreator } from '../../../redux/Profile-Reducer';
-import StoreContext from '../../../StoreContext';
 import Profile from './Profile';
 
-
-const ProfileContainer = () => {
-    return (
-        <StoreContext.Consumer>
-            { (store) => {
-
-                let AddPost = () => {
-                    store.dispatch(AddPostAclionCreator())
-                }
-                let ChangePostText = (text) => {
-                    let action = changePostTextActionCreator(text);
-                    store.dispatch(action);
-                }
-                return <Profile
-                    updateNewPostText={ChangePostText}
-                    addNewPost={AddPost}
-                    newPostText={store.getState().PageProfile.newPostText}
-                    posts={store.getState().PageProfile.posts} />
-            }
-        }
-        </StoreContext.Consumer>
-    )
+let mapStateToProps = (state) => {
+    return {
+        PageProfile: state.PageProfile
+    }
 }
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        updateNewPostText: (text) => {
+            dispatch(changePostTextActionCreator(text));
+        },
+        addNewPost: () => {
+            dispatch(AddPostAclionCreator());
+        }
+    }
+}
+
+
+const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile)
 
 export default ProfileContainer;

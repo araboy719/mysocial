@@ -5,6 +5,7 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 
 const Profile = (props) => {
+    
     let newPost = React.createRef();
 
     let ChangePostText = () => {
@@ -16,12 +17,12 @@ const Profile = (props) => {
         <div className={s.content}>
             <ProfileInfo />
             <div>
-                <textarea ref={newPost} onChange={ChangePostText} value={props.newPostText}></textarea>
+                <textarea ref={newPost} onChange={ChangePostText} value={props.PageProfile.newPostText}></textarea>
             </div>
             <div>
                 <button onClick={props.addNewPost}>Add New Post</button>
             </div>
-            <Posts posts={props.posts} />
+            <Posts posts={props.PageProfile.posts} />
         </div>
 
     )

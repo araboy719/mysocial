@@ -17,8 +17,7 @@ const App = (props) => {
         <Route path='/profile'
           render={() => <ProfileContainer />} />
         <Route path='/dialogs'
-          render={() =>
-            <MessageContainer />} />
+          render={() => <MessageContainer />} />
       </div>
     </BrowserRouter>
   );
