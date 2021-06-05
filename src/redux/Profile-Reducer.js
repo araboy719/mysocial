@@ -1,44 +1,38 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-const initialState =  {
+const initialState = {
     posts: [
-      { id: 1, message: "Hi it is my first post" },
-      { id: 2, message: "i am study React" },
-      { id: 3, message: "Now i am use 'props'" },
+        { id: 1, message: "Hi it is my first post" },
+        { id: 2, message: "i am study React" },
+        { id: 3, message: "Now i am use 'props'" },
     ],
     newPostText: ''
 
-  }
+}
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        
-        case ADD_POST:{
 
-            let NewPost = {
-                id: 4,
-                message: state.newPostText,
-            };
-            let stateCopy = {...state};
-            stateCopy.posts = [...state.posts];
-            stateCopy.posts.push(NewPost);
-            stateCopy.newPostText = '';
-            return stateCopy;
+        case ADD_POST: {
+            let postTextBody = state.newPostText;
+            return {
+                ...state,
+                newPostText: "",
+                posts: [...state.posts, { id: 6, message: postTextBody }]
+            }
         }
-        case UPDATE_NEW_POST_TEXT:{
-
-            let stateCopy = {...state}
-            stateCopy.newPostText = (action.NewText);
-
-            return stateCopy;
+        case UPDATE_NEW_POST_TEXT: {
+            return {
+                ...state,
+                newPostText: action.NewText
+            }
         }
         default:
             return state;
     }
 
 }
-
 
 export const AddPostAclionCreator = () => {
     return {

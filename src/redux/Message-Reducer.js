@@ -24,24 +24,21 @@ const initialState = {
 
 
 const messageReducer = (state = initialState, action) => {
-
+    debugger
     switch (action.type) {
-        case ADD_MESSAGE:{
-            let NewMessage = {
-                id: 7,
-                text: state.newMessage,
-            };
-            let stateCopy = {...state}
-            stateCopy.chat = [...state.chat]
-            stateCopy.chat.push(NewMessage);
-            stateCopy.newMessage = '';
-            return stateCopy;
-        }
-        case UPDATE_NEW_MESSAGE:{
-            let stateCopy = {...state}
-            stateCopy.newMessage = (action.newText);
-            return stateCopy;
-        }
+        
+        case ADD_MESSAGE:
+            let textBody = state.newMessage
+            return{
+                ...state,
+                newMessage: "",
+                chat: [...state.chat, {id: 6, text: textBody}],
+            }
+        case UPDATE_NEW_MESSAGE:
+            return({
+                ...state,
+                newMessage: action.newText
+            })        
         default:
             return state;
     }
