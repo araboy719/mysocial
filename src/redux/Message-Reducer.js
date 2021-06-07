@@ -24,7 +24,6 @@ const initialState = {
 
 
 const messageReducer = (state = initialState, action) => {
-    debugger
     switch (action.type) {
         
         case ADD_MESSAGE:
