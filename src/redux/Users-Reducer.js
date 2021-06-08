@@ -3,12 +3,14 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+const TOOGGLE_IS_FEATCHING = 'TOOGGLE_IS_FEATCHING';
 
 const initialState = {
     users: [],
     totalUsersCount: 0,
     pageSize: 5,
-    currentPage : 1,
+    currentPage: 1,
+    isPreloader: false,
 
 
 }
@@ -49,9 +51,13 @@ const usersReducer = (state = initialState, action) => {
             }
         }
         case SET_TOTAL_USERS_COUNT: {
-            debugger
             return{ ...state,
                 totalUsersCount: action.totalCount
+            }
+        }
+        case TOOGGLE_IS_FEATCHING: {
+            return{ ...state,
+                isPreloader: action.isPrloader
             }
         }
         default:
@@ -88,6 +94,12 @@ export const setTotalCountAC = (totalUsersCount) => {
     return {
         type: SET_TOTAL_USERS_COUNT,
         totalCount: totalUsersCount
+    }
+}
+export const changeIsPreloaderAC = (isPrloader) => {
+    return {
+        type: TOOGGLE_IS_FEATCHING,
+        isPrloader
     }
 }
 

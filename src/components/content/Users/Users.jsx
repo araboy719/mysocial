@@ -1,51 +1,36 @@
 import React from 'react';
 import s from './Users.module.css';
-import * as axios from 'axios';
 import avatar from '../../../assets/img/avatar.jpg'
+import Preloader from '../../common/preloader/Preloader';
 
-class Users extends React.Component {
-
-    componentDidMount() {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users?page=" + this.props.currentPage + "&count=" + this.props.pageSize + "").then(response => {
-            this.props.setUsers(response.data.items);
-            this.props.setTotalCount(response.data.totalCount);
-            debugger
-        });
+let Users = (props) => {
+    let countOfPages = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= countOfPages; i++) {
+        pages.push(i)
     }
-    onPageChanged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
-        axios.get("https://social-network.samuraijs.com/api/1.0/users?page=" + pageNumber + "&count=" + this.props.pageSize + "")
-            .then(response => {
-                this.props.setUsers(response.data.items);
-            });
-    }
-
-    render() {
-        let countOfPages = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-        let pages = [];
-        for (let i = 1; i <= countOfPages; i++) {
-            pages.push(i)
-        }
-        return <div className={s.content}>
-
+    return <div className={s.content}>
+        {props.isPreloader ? <Preloader /> : null}
+        <div className={s.paginator}>
             {pages.map(p => {
-                return <span onClick={(e) => { this.onPageChanged(p) }} className={this.props.currentPage === p && s.selected}>{p}</span>
+                return <span onClick={(e) => { props.onPageChanged(p) }} className={props.currentPage === p && s.selected}>{p}</span>
             })}
-
-            {this.props.users.map(u => <div key={u.id} className={s.user}>
-                <span>
-                    <p>{u.name}</p>
-                    <img src={u.photos.small != null ? u.photos.small : avatar} />
-                </span>
-                <span>
-                    <p>{u.status}</p>
-                    {u.follow ? <button onClick={() => { this.props.unfollowUsers(u.id) }}>Follow</button> : <button onClick={() => { this.props.followUsers(u.id) }}>Unfollow</button>}
-                </span>
-            </div>
-            )}
         </div>
 
-    }
+        {props.users.map(u => <div key={u.id} className={s.user}>
+            <span>
+                <p>{u.name}</p>
+                <img src={u.photos.small != null ? u.photos.small : avatar} />
+            </span>
+            <span>
+                <p>{u.status}</p>
+                {u.follow ? <button onClick={() => { props.unfollowUsers(u.id) }}>Follow</button> : <button onClick={() => { props.followUsers(u.id) }}>Unfollow</button>}
+            </span>
+        </div>
+        )}
+    </div>
+
 }
+
 
 export default Users;
