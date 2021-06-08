@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { FollowAC, UnfollowAC, setUsersAC, setCurrentPageAC, setTotalCountAC, changeIsPreloaderAC } from '../../../redux/Users-Reducer';
+import { follow, unfollow, setUsers, setCurrentPage, setTotalCount, setPreloader } from '../../../redux/Users-Reducer';
 import Users from './Users';
 import * as axios from 'axios';
 
@@ -30,8 +30,8 @@ class UsersContainerAPI extends React.Component {
         pageSize ={this.props.pageSize}
         currentPage = {this.props.currentPage}
         users = {this.props.users}
-        unfollowUsers = {this.props.unfollowUsers}
-        followUsers = {this.props.followUsers}
+        unfollowUsers = {this.props.unfollow}
+        followUsers = {this.props.follow}
         isPreloader = {this.props.isPreloader} />
     }
 }
@@ -47,27 +47,14 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        followUsers: (idUser) => {
-            dispatch(FollowAC(idUser));
-        },
-        unfollowUsers: (idUser) => {
-            dispatch(UnfollowAC(idUser));
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrentPage: (currentPage) => {
-            dispatch(setCurrentPageAC(currentPage));
-        },
-        setTotalCount: (totalCount) => {
-            dispatch(setTotalCountAC(totalCount));
-        },
-        setPreloader: (isPreloader) => {
-            dispatch(changeIsPreloaderAC(isPreloader));
-        } 
-    }
+let mapDispatchToProps = {
+        follow,
+        unfollow,
+        setUsers,
+        setCurrentPage,
+        setTotalCount,
+        setPreloader, 
+    
 }
 
 
