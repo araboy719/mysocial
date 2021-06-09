@@ -1,11 +1,11 @@
 import React from 'react';
-import s from './../Profile.module.css';
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+
     return (
             <div>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRyAE980jhBnzMXKUK3IM5uMTNr98mmyfOIrQ&usqp=CAU"></img>
-                <div><p>Hallo, my name is Artur. And I learn ReactJs</p></div>
+                <img src={props.profile.photos.large}></img>
+                <div><p>{props.profile.aboutMe}</p></div>
             </div>
 
     )

@@ -2,10 +2,13 @@ import React from 'react';
 import Posts from './Posts/Posts';
 import s from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
+import Preloader from '../../common/preloader/Preloader';
 
 
 const Profile = (props) => {
-    
+    if(!props.PageProfile.profile){
+        return <Preloader />
+    }
     let newPost = React.createRef();
 
     let ChangePostText = () => {
@@ -14,8 +17,9 @@ const Profile = (props) => {
     }
 
     return (
+        
         <div className={s.content}>
-            <ProfileInfo />
+            <ProfileInfo profile={props.PageProfile.profile}/>
             <div>
                 <textarea ref={newPost} onChange={ChangePostText} value={props.PageProfile.newPostText}></textarea>
             </div>

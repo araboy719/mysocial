@@ -1,5 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const ADD_POST = 'ADD_POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+const SET_PROFILE = 'SET_PROFILE' 
 
 const initialState = {
     posts: [
@@ -7,7 +8,9 @@ const initialState = {
         { id: 2, message: "i am study React" },
         { id: 3, message: "Now i am use 'props'" },
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null,
+    isPreloader: false,
 
 }
 
@@ -28,21 +31,33 @@ const profileReducer = (state = initialState, action) => {
                 newPostText: action.NewText
             }
         }
+        case SET_PROFILE: {
+            return {
+                ...state,
+                profile: action.profile
+            }
+        }
         default:
             return state;
     }
 
 }
 
-export const AddPostAclionCreator = () => {
+export const addNewPost = () => {
     return {
-        type: 'ADD-POST',
+        type: ADD_POST,
     }
 }
-export const changePostTextActionCreator = (text) => {
+export const updateNewPostText = (text) => {
     return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        NewText: text,
+        type: UPDATE_NEW_POST_TEXT,
+        text,
+    }
+}
+export const setProfile = (profile) => {
+    return {
+        type: SET_PROFILE,
+        profile,
     }
 }
 export default profileReducer;
