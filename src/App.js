@@ -4,15 +4,15 @@ import './App.css';
 import MessageContainer from "./components/content/Message/MessageContainer";
 import ProfileContainer from "./components/content/Profile/ProfileContainer";
 import UsersContainer from "./components/content/Users/UsersContainer";
-import Header from './components/Header/Header';
+import HeaderComponent from './components/Header/HeaderContainer';
 import Navbar from "./components/Navbar/Navbar";
 
 
-const App = (props) => {
+const App = () => {
   return (
     <BrowserRouter>
       <div className="app-wrapper">
-        <Header />
+        <HeaderComponent />
 
         <Navbar />
         <Route path='/profile/:userID' render={() => <ProfileContainer />} />

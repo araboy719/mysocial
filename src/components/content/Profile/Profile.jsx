@@ -6,7 +6,7 @@ import Preloader from '../../common/preloader/Preloader';
 
 
 const Profile = (props) => {
-    debugger
+    
     if(!props.PageProfile.profile){
         return <Preloader />
     }

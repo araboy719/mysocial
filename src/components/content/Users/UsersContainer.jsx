@@ -23,7 +23,6 @@ class UsersContainerAPI extends React.Component {
                 this.props.setPreloader(false);
             });
     }
-
     render() {
         return <Users   onPageChanged = {this.onPageChanged}
         totalUsersCount = {this.props.totalUsersCount}
