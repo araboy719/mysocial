@@ -1,10 +1,11 @@
 import React from 'react';
 import s from './Post.module.css';
+import avatar from '../../../../../assets/img/avatar.jpg'
 
 const Post = (props) => {
     return (
         <div className= {s.post}>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRyAE980jhBnzMXKUK3IM5uMTNr98mmyfOIrQ&usqp=CAU"></img>
+            <img src={props.profile.photos.small ? props.profile.photos.small : avatar }></img>
             
             <div> { props.message } </div>
         </div>

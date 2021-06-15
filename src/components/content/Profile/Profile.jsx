@@ -6,6 +6,7 @@ import Preloader from '../../common/preloader/Preloader';
 
 
 const Profile = (props) => {
+    debugger
     if(!props.PageProfile.profile){
         return <Preloader />
     }
@@ -26,7 +27,7 @@ const Profile = (props) => {
             <div>
                 <button onClick={props.addNewPost}>Add New Post</button>
             </div>
-            <Posts posts={props.PageProfile.posts} />
+            <Posts posts={props.PageProfile.posts} profile={props.PageProfile.profile} />
         </div>
 
     )
