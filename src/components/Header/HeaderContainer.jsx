@@ -7,7 +7,8 @@ import { setCurrentProfile } from '../../../src/redux/auth';
 class HeaderContainerAPI extends React.Component {
 
     componentDidMount(){
-        axios.get("https://social-network.samuraijs.com/api/1.0//auth/me", {withCredentials: true}).then(response => {
+        
+        axios.get("https://social-network.samuraijs.com/api/1.0/auth/me", {withCredentials: true}).then(response => {
             this.props.setCurrentProfile(response.data.data)
         });
     }
