@@ -79,7 +79,6 @@ export const unfollow = (idUser) => {
     }
 }
 export const setUsers = (users) => {
-    debugger
     return {
         type: SET_USERS,
         usersList: users
