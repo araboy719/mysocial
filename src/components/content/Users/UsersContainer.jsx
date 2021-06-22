@@ -1,26 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, unfollow, setUsers, setCurrentPage, setTotalCount, setPreloader } from '../../../redux/Users-Reducer';
+import { follow, unfollow, setUsers, setCurrentPage, setTotalCount, setPreloader, setFollowingInprogress } from '../../../redux/Users-Reducer';
 import Users from './Users';
-import * as axios from 'axios';
+import { setNewUsers } from 'redux/axios/requestApi';
 
 class UsersContainerAPI extends React.Component {
 
     componentDidMount() {
         this.props.setPreloader(true);
-        axios.get("https://social-network.samuraijs.com/api/1.0/users?page=" + this.props.currentPage + "&count=" + this.props.pageSize + "", {withCredentials: true}).then(response => {
-            debugger
-        this.props.setUsers(response.data.items);
-            this.props.setTotalCount(response.data.totalCount);
+        setNewUsers().then(data => {
+        this.props.setUsers(data.items);
+            this.props.setTotalCount(data.totalCount);
             this.props.setPreloader(false)
         });
     }
     onPageChanged = (pageNumber) => {
         this.props.setPreloader(true);
         this.props.setCurrentPage(pageNumber);
-        axios.get("https://social-network.samuraijs.com/api/1.0/users?page=" + pageNumber + "&count=" + this.props.pageSize + "", {withCredentials: true})
-            .then(response => {
-                this.props.setUsers(response.data.items);
+        setNewUsers(pageNumber, this.props.pageSize).then(data => {
+                this.props.setUsers(data.items);
                 this.props.setPreloader(false);
             });
     }
@@ -32,7 +30,11 @@ class UsersContainerAPI extends React.Component {
         users = {this.props.users}
         unfollowUsers = {this.props.unfollow}
         followUsers = {this.props.follow}
-        isPreloader = {this.props.isPreloader} />
+        isPreloader = {this.props.isPreloader}
+        setFollowingInprogress = {this.props.setFollowingInprogress}
+        followingInProgress = {this.props.followingInProgress}
+
+         />
     }
 }
 
@@ -44,6 +46,7 @@ let mapStateToProps = (state) => {
         totalUsersCount: state.PageUsers.totalUsersCount,
         currentPage: state.PageUsers.currentPage,
         isPreloader: state.PageUsers.isPreloader,
+        followingInProgress: state.PageUsers.followingInprogress
     }
 }
 
@@ -53,8 +56,8 @@ let mapDispatchToProps = {
         setUsers,
         setCurrentPage,
         setTotalCount,
-        setPreloader, 
-    
+        setPreloader,
+        setFollowingInprogress,
 }
 
 

@@ -4,6 +4,7 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const TOOGGLE_IS_FEATCHING = 'TOOGGLE_IS_FEATCHING';
+const FOLLOWING_IN_PROGRESS = 'FOLLOWING_IN_PROGRESS';
 
 const initialState = {
     users: [],
@@ -11,7 +12,7 @@ const initialState = {
     pageSize: 5,
     currentPage: 1,
     isPreloader: false,
-
+    followingInprogress: false
 
 }
 
@@ -22,8 +23,9 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 users: state.users.map( u => {
+                    
                     if(u.id === action.userID){
-                        return {...u, follow: true}
+                        return {...u, followed: true}
                     }
                     return u;
                 })
@@ -33,8 +35,9 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state, 
                 users: state.users.map( u => {
+                    
                     if(u.id === action.userID){
-                        return {...u, follow: false}
+                        return {...u, followed: false}
                     }
                     return u;
                 })
@@ -58,6 +61,11 @@ const usersReducer = (state = initialState, action) => {
         case TOOGGLE_IS_FEATCHING: {
             return{ ...state,
                 isPreloader: action.isPrloader
+            }
+        }
+        case FOLLOWING_IN_PROGRESS: {
+            return{ ...state,
+                followingInprogress: action.followingProgress
             }
         }
         default:
@@ -102,5 +110,10 @@ export const setPreloader = (isPrloader) => {
         isPrloader
     }
 }
-
+export const setFollowingInprogress = (followingProgress) => {
+    return {
+        type: FOLLOWING_IN_PROGRESS,
+        followingProgress
+    }
+}
 export default usersReducer;
