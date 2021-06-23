@@ -12,7 +12,7 @@ const initialState = {
     pageSize: 5,
     currentPage: 1,
     isPreloader: false,
-    followingInprogress: false
+    followingInprogress: []
 
 }
 
@@ -64,8 +64,11 @@ const usersReducer = (state = initialState, action) => {
             }
         }
         case FOLLOWING_IN_PROGRESS: {
+            // debugger
             return{ ...state,
-                followingInprogress: action.followingProgress
+                followingInprogress: action.followingProgress ? 
+                [ ...state.followingInprogress, action.userID] :
+                [ ...state.followingInprogress.filter(id => id != action.userID)]
             }
         }
         default:
@@ -110,10 +113,11 @@ export const setPreloader = (isPrloader) => {
         isPrloader
     }
 }
-export const setFollowingInprogress = (followingProgress) => {
+export const setFollowingInprogress = (followingProgress, userID) => {
     return {
         type: FOLLOWING_IN_PROGRESS,
-        followingProgress
+        followingProgress,
+        userID
     }
 }
 export default usersReducer;
