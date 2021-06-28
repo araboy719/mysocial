@@ -12,3 +12,15 @@ export let setNewUsers = (currentPage, pageSize) => {
     return instance.get("users?page=" + currentPage + "&count=" + pageSize + "")
     .then(response => { return response.data })
 }
+
+export let authMe = () => {
+    return instance.get("auth/me").then(response => { return response.data})  
+}
+
+export let followUserAPI = (userID) =>{
+    return instance.post('follow/' + userID).then(response => { return response.data})
+}
+
+export let unfollowUserAPI = (userID) =>{
+    return instance.delete('follow/' + userID).then(response => { return response.data})
+}

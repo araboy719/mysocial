@@ -5,7 +5,7 @@ import avatar from '../../../../../assets/img/avatar.jpg'
 const Post = (props) => {
     return (
         <div className= {s.post}>
-            <img src={props.profile.photos.small ? props.profile.photos.small : avatar }></img>
+            <img alt="avatar" src={props.profile.photos.small ? props.profile.photos.small : avatar }></img>
             
             <div> { props.message } </div>
         </div>

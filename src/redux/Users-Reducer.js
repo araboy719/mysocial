@@ -64,11 +64,10 @@ const usersReducer = (state = initialState, action) => {
             }
         }
         case FOLLOWING_IN_PROGRESS: {
-            // debugger
             return{ ...state,
                 followingInprogress: action.followingProgress ? 
                 [ ...state.followingInprogress, action.userID] :
-                [ ...state.followingInprogress.filter(id => id != action.userID)]
+                [ ...state.followingInprogress.filter(id => id !== action.userID)]
             }
         }
         default:

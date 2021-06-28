@@ -1,15 +1,14 @@
 import React from 'react';
 import Header from './Header';
-import * as axios from 'axios';
 import { connect } from 'react-redux';
 import { setCurrentProfile } from '../../../src/redux/auth';
+import { authMe } from 'redux/axios/requestApi';
 
 class HeaderContainerAPI extends React.Component {
 
     componentDidMount(){
-        
-        axios.get("https://social-network.samuraijs.com/api/1.0/auth/me", {withCredentials: true}).then(response => {
-            this.props.setCurrentProfile(response.data.data)
+        authMe().then(data => {
+            this.props.setCurrentProfile(data.data)
         });
     }
 
