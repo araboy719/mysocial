@@ -1,6 +1,9 @@
+import { userAPI } from "./axios/requestApi";
+
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
-const SET_PROFILE = 'SET_PROFILE' 
+const SET_PROFILE = 'SET_PROFILE';
+const SET_PRELOADER = 'SET_PRELOADER';
 
 const initialState = {
     posts: [
@@ -37,6 +40,12 @@ const profileReducer = (state = initialState, action) => {
                 profile: action.profile
             }
         }
+        case SET_PRELOADER: {
+            return {
+                ...state,
+                isPreloader: action.status
+            }
+        }
         default:
             return state;
     }
@@ -60,4 +69,24 @@ export const setProfile = (profile) => {
         profile,
     }
 }
+
+export const setPreloader = (status) => {
+    return{
+        type: SET_PRELOADER,
+        status
+    }
+}
+
+export const setCurrentUserPage = (userID) => {
+    return (dispatch) => {
+        dispatch(setPreloader(true));
+        userAPI.setCurrentUserPage(userID).then(response => {
+            dispatch(setProfile(response.data));
+            dispatch(setPreloader(false))
+        });
+
+    }
+} 
+
+
 export default profileReducer;

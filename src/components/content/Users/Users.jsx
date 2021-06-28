@@ -3,10 +3,8 @@ import s from './Users.module.css';
 import avatar from '../../../assets/img/avatar.jpg'
 import Preloader from '../../common/preloader/Preloader';
 import { NavLink } from 'react-router-dom';
-import { followUserAPI, unfollowUserAPI } from 'redux/axios/requestApi';
 
-let Users = (props) => {
-
+let Users = (props) => {    
     let countOfPages = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= countOfPages; i++) {
@@ -24,39 +22,24 @@ let Users = (props) => {
             <span>
                 <p>{u.name}</p>
                 <NavLink to={"/profile/" + u.id} >
-                    <img src={u.photos.small != null ? u.photos.small : avatar} alt="avatar" />
+                    <img alt="avatar" src={u.photos.small != null ? u.photos.small : avatar} />
                 </NavLink>
             </span>
             <span>
                 <p>{u.status}</p>
-                {!u.followed ?
+                {u.followed ?
+                    <button disabled={props.followingInProgress.some(id=>id === u.id)} onClick={() => {
+                        props.unfollowThunk(u.id)
+                    }}>Unfollow</button>
+                     : 
+                     <button disabled={props.followingInProgress.some(id=>id === u.id)} onClick={() => {
+                        props.followThunk(u.id)
+                    }}>Follow</button>
 
-                    <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                        props.setFollowingInprogress(true, u.id);
-                        followUserAPI().then(
-                            data => {
-                                if (data.resultCode === 0) {
-                                    props.followUsers(u.id)
-                                }
-                                props.setFollowingInprogress(false, u.id);
-                            })
-                    }}>Follow</button> :
-
-                    <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                        props.setFollowingInprogress(true, u.id);
-                        unfollowUserAPI().then(
-                            data => {
-                                if (data.resultCode === 0) {
-                                    props.unfollowUsers(u.id)
-                                }
-                                props.setFollowingInprogress(false, u.id);
-                            })
-                    }}>Unfollow</button>}
+                    }
             </span>
         </div>
         )}
     </div>
 }
-
-
 export default Users;

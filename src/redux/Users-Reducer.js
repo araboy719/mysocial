@@ -1,3 +1,5 @@
+import { userAPI } from "./axios/requestApi";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -18,56 +20,63 @@ const initialState = {
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        
+
         case FOLLOW: {
+            debugger
             return {
                 ...state,
-                users: state.users.map( u => {
-                    
-                    if(u.id === action.userID){
-                        return {...u, followed: true}
+                users: state.users.map(u => {
+
+                    if (u.id === action.userID) {
+                        return { ...u, followed: true }
                     }
                     return u;
                 })
             }
         }
         case UNFOLLOW: {
+            debugger
             return {
-                ...state, 
-                users: state.users.map( u => {
-                    
-                    if(u.id === action.userID){
-                        return {...u, followed: false}
+                ...state,
+                users: state.users.map(u => {
+
+                    if (u.id === action.userID) {
+                        return { ...u, followed: false }
                     }
                     return u;
                 })
             }
         }
         case SET_USERS: {
-            return{ ...state,
-                users:[...action.usersList]
+            return {
+                ...state,
+                users: [...action.usersList]
             }
         }
         case SET_CURRENT_PAGE: {
-            return{ ...state,
+            return {
+                ...state,
                 currentPage: action.currentPage
             }
         }
         case SET_TOTAL_USERS_COUNT: {
-            return{ ...state,
+            return {
+                ...state,
                 totalUsersCount: action.totalCount
             }
         }
         case TOOGGLE_IS_FEATCHING: {
-            return{ ...state,
+            return {
+                ...state,
                 isPreloader: action.isPrloader
             }
         }
         case FOLLOWING_IN_PROGRESS: {
-            return{ ...state,
-                followingInprogress: action.followingProgress ? 
-                [ ...state.followingInprogress, action.userID] :
-                [ ...state.followingInprogress.filter(id => id !== action.userID)]
+            return {
+                ...state,
+                followingInprogress: action.followingProgress ?
+                    [...state.followingInprogress, action.userID] :
+                    [...state.followingInprogress.filter(id => id !== action.userID)]
             }
         }
         default:
@@ -77,12 +86,14 @@ const usersReducer = (state = initialState, action) => {
 }
 
 export const follow = (idUser) => {
+    debugger
     return {
         type: FOLLOW,
         userID: idUser
     }
 }
 export const unfollow = (idUser) => {
+    debugger
     return {
         type: UNFOLLOW,
         userID: idUser
@@ -117,6 +128,45 @@ export const setFollowingInprogress = (followingProgress, userID) => {
         type: FOLLOWING_IN_PROGRESS,
         followingProgress,
         userID
+    }
+}
+
+export const getUsersThunkCreator = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setPreloader(true));
+        userAPI.setNewUsers(currentPage, pageSize).then(data => {
+            dispatch(setUsers(data.items));
+            dispatch(setTotalCount(data.totalCount));
+            dispatch(setPreloader(false));
+        });
+    }
+}
+
+export const followThunk = (userID) => {
+    return (dispatch) => {
+        dispatch(setFollowingInprogress(true, userID));
+        userAPI.follow(userID).then(
+            response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(follow(userID))
+                }
+                dispatch(setFollowingInprogress(false, userID));
+            }
+        )
+    }
+}
+
+export const unfollowThunk = (userID) => {
+    return (dispatch) => {
+        dispatch(setFollowingInprogress(true, userID));
+        userAPI.unfollow(userID).then(
+            response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unfollow(userID))
+                }
+                dispatch(setFollowingInprogress(false, userID));
+            }
+        )
     }
 }
 export default usersReducer;

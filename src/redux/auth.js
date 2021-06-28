@@ -1,3 +1,5 @@
+import { authMe } from "./axios/requestApi";
+
 const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 const initialState = {
@@ -7,7 +9,7 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        
+
         case SET_CURRENT_USER: {
             return {
                 ...state,
@@ -24,6 +26,14 @@ export const setCurrentProfile = (currentProfile) => {
     return {
         type: SET_CURRENT_USER,
         currentProfile
+    }
+}
+
+export const setCurrentUser = () => {
+    return (dispatch) => {
+        authMe().then(data => {
+            dispatch(setCurrentProfile(data.data))
+        });
     }
 }
 

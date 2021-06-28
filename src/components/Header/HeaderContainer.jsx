@@ -1,15 +1,12 @@
 import React from 'react';
 import Header from './Header';
 import { connect } from 'react-redux';
-import { setCurrentProfile } from '../../../src/redux/auth';
-import { authMe } from 'redux/axios/requestApi';
+import { setCurrentUser } from '../../../src/redux/auth';
 
 class HeaderContainerAPI extends React.Component {
 
     componentDidMount(){
-        authMe().then(data => {
-            this.props.setCurrentProfile(data.data)
-        });
+        this.props.setCurrentUser();
     }
 
     render() {
@@ -17,7 +14,6 @@ class HeaderContainerAPI extends React.Component {
     }
 }
 let mapStateToProps = (state) =>{
-    
     return{
         userData: state.authData.usersProfile,
         loged: state.authData.loged
@@ -25,7 +21,7 @@ let mapStateToProps = (state) =>{
 
 }
 
-const HeaderComponent = connect(mapStateToProps, {setCurrentProfile})(HeaderContainerAPI)
+const HeaderComponent = connect(mapStateToProps, {setCurrentUser})(HeaderContainerAPI)
 
 
 export default HeaderComponent;

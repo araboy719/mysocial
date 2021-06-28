@@ -1,26 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, unfollow, setUsers, setCurrentPage, setTotalCount, setPreloader, setFollowingInprogress } from '../../../redux/Users-Reducer';
+import { followThunk, unfollowThunk, setUsers, setCurrentPage, setTotalCount, getUsersThunkCreator } from '../../../redux/Users-Reducer';
 import Users from './Users';
-import { setNewUsers } from 'redux/axios/requestApi';
 
 class UsersContainerAPI extends React.Component {
 
     componentDidMount() {
-        this.props.setPreloader(true);
-        setNewUsers().then(data => {
-        this.props.setUsers(data.items);
-            this.props.setTotalCount(data.totalCount);
-            this.props.setPreloader(false)
-        });
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
     }
+
     onPageChanged = (pageNumber) => {
-        this.props.setPreloader(true);
-        this.props.setCurrentPage(pageNumber);
-        setNewUsers(pageNumber, this.props.pageSize).then(data => {
-                this.props.setUsers(data.items);
-                this.props.setPreloader(false);
-            });
+        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize)
     }
     render() {
         return <Users   onPageChanged = {this.onPageChanged}
@@ -28,13 +18,11 @@ class UsersContainerAPI extends React.Component {
         pageSize ={this.props.pageSize}
         currentPage = {this.props.currentPage}
         users = {this.props.users}
-        unfollowUsers = {this.props.unfollow}
-        followUsers = {this.props.follow}
         isPreloader = {this.props.isPreloader}
-        setFollowingInprogress = {this.props.setFollowingInprogress}
         followingInProgress = {this.props.followingInProgress}
-
-         />
+        unfollowThunk = {this.props.unfollowThunk}
+        followThunk = {this.props.followThunk}
+        />
     }
 }
 
@@ -51,13 +39,12 @@ let mapStateToProps = (state) => {
 }
 
 let mapDispatchToProps = {
-        follow,
-        unfollow,
         setUsers,
         setCurrentPage,
         setTotalCount,
-        setPreloader,
-        setFollowingInprogress,
+        getUsersThunkCreator,
+        followThunk,
+        unfollowThunk,
 }
 
 
