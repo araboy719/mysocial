@@ -12,8 +12,10 @@ const authReducer = (state = initialState, action) => {
 
         case SET_CURRENT_USER: {
             return {
+                
                 ...state,
                 usersProfile: action.currentProfile,
+                loged: true,
             }
         }
         default:
@@ -30,9 +32,12 @@ export const setCurrentProfile = (currentProfile) => {
 }
 
 export const setCurrentUser = () => {
+    
     return (dispatch) => {
-        authMe().then(data => {
-            dispatch(setCurrentProfile(data.data))
+        authMe().then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setCurrentProfile(response.data.data));
+            }
         });
     }
 }

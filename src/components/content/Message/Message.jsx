@@ -1,10 +1,12 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import Chat from './Chat/Chat';
 import Dialog from './Dialogs/Dialogs';
 import s from './Message.module.css';
 
 
 const Message = (props) => {
+
     let PageMessage = props.PageMessage;
     let DialogItems = PageMessage.dialogs.map(dialogs => <Dialog name={dialogs.name} id={dialogs.id} />);
 

@@ -1,3 +1,4 @@
+import Login from "components/content/Login/Login";
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import './App.css';
@@ -20,6 +21,8 @@ const App = () => {
         <Route path='/dialogs' render={() => <MessageContainer />} />
 
         <Route path='/users' render={() => <UsersContainer />} />
+        
+        <Route path='/login' render={() => <Login />} />
       </div>
     </BrowserRouter>
   );
