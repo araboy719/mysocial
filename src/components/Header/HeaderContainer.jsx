@@ -21,7 +21,4 @@ let mapStateToProps = (state) =>{
 
 }
 
-const HeaderComponent = connect(mapStateToProps, {setCurrentUser})(HeaderContainerAPI)
-
-
-export default HeaderComponent;
+export default connect(mapStateToProps, {setCurrentUser})(HeaderContainerAPI)

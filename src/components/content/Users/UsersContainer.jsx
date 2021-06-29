@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { followThunk, unfollowThunk, setUsers, setCurrentPage, setTotalCount, getUsersThunkCreator } from '../../../redux/Users-Reducer';
 import Users from './Users';
 
-class UsersContainerAPI extends React.Component {
+class UsersConteiner extends React.Component {
 
     componentDidMount() {
         this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
@@ -48,6 +49,6 @@ let mapDispatchToProps = {
 }
 
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainerAPI)
-
-export default UsersContainer;
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps)
+)(UsersConteiner);
