@@ -24,14 +24,14 @@ const profileReducer = (state = initialState, action) => {
             let postTextBody = state.newPostText;
             return {
                 ...state,
-                newPostText: "",
-                posts: [...state.posts, { id: 6, message: postTextBody }]
-            }
+                posts: [...state.posts, { id: 6, message: postTextBody }],
+                newPostText: '',
+            };
         }
         case UPDATE_NEW_POST_TEXT: {
             return {
                 ...state,
-                newPostText: action.NewText
+                newPostText: action.text
             }
         }
         case SET_PROFILE: {

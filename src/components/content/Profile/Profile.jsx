@@ -1,13 +1,14 @@
 import React from 'react';
 import Posts from './Posts/Posts';
 import s from './Profile.module.css';
-import ProfileInfo from './ProfileInfo/ProfileInfo';
+import ProfileStatus from './ProfileInfo/ProfileStatus';
 import Preloader from '../../common/preloader/Preloader';
+import avatar from '../../../assets/img/avatar.jpg'
 
 
 const Profile = (props) => {
     
-    if(!props.PageProfile.profile){
+    if(!props.profile){
         return <Preloader />
     }
     let newPost = React.createRef();
@@ -20,14 +21,16 @@ const Profile = (props) => {
     return (
         
         <div className={s.content}>
-            <ProfileInfo profile={props.PageProfile.profile}/>
+            <img alt="avatar" src={props.profile.photos.large ? props.profile.photos.large : avatar }></img>
+            <ProfileStatus profile={props.profile} status="test:"/>
             <div>
-                <textarea ref={newPost} onChange={ChangePostText} value={props.PageProfile.newPostText}></textarea>
+                <textarea ref={newPost} onChange={ChangePostText} value={props.newPostText}></textarea>
             </div>
             <div>
                 <button onClick={props.addNewPost}>Add New Post</button>
             </div>
-            <Posts posts={props.PageProfile.posts} profile={props.PageProfile.profile} />
+            
+            <Posts posts={props.posts} profileImage={props.profile.photos.large ? props.profile.photos.large : avatar } />
         </div>
 
     )

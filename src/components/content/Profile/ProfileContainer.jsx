@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { addNewPost, updateNewPostText, setCurrentUserPage } from '../../../redux/Profile-Reducer';
 import Profile from './Profile';
 import { withRouter } from 'react-router';
-import { withAuthRedirect } from 'hoc/withAuthRedirect';
 import { compose } from 'redux';
 
 class ProfileContainer extends React.Component {
@@ -20,13 +19,16 @@ class ProfileContainer extends React.Component {
 
 
 let mapStateToProps = (state) => {
+
     return {
-        PageProfile: state.PageProfile,
-        isAuth: state.authData.loged
+        profile: state.PageProfile.profile,
+        isAuth: state.authData.loged,
+        posts: state.PageProfile.posts,
+        newPostText: state.PageProfile.newPostText,
     }
 }
 export default compose(
     connect(mapStateToProps, { updateNewPostText, addNewPost, setCurrentUserPage }),
     withRouter,
-    withAuthRedirect
+    // withAuthRedirect
 )(ProfileContainer)
