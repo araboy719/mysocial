@@ -24,8 +24,16 @@ export const userAPI = {
     }
 }
 
-export let authMe = () => {
-    return instance.get("auth/me").then(response => { return response })
+export let currentUserData =  {
+    authMe() {
+        return instance.get("auth/me").then(response => { return response })
+    },
+    getStatus(userID) {
+        return instance.get("/profile/status/"+ userID).then(response => { return response })
+    },
+    setStatusCurrentUser(statusString) {
+        return instance.put("profile/status", {status: statusString  }).then(response => { return response })
+    }
 }
 
 

@@ -1,9 +1,10 @@
-import { userAPI } from "./axios/requestApi";
+import { currentUserData, userAPI } from "./axios/requestApi";
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_PROFILE = 'SET_PROFILE';
 const SET_PRELOADER = 'SET_PRELOADER';
+const GET_STATUS = 'GET_STATUS';
 
 const initialState = {
     posts: [
@@ -14,6 +15,7 @@ const initialState = {
     newPostText: '',
     profile: null,
     isPreloader: false,
+    status: "",
 
 }
 
@@ -46,6 +48,12 @@ const profileReducer = (state = initialState, action) => {
                 isPreloader: action.status
             }
         }
+        case GET_STATUS: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default:
             return state;
     }
@@ -69,9 +77,15 @@ export const setProfile = (profile) => {
         profile,
     }
 }
+export const getStatus = (status) => {
+    return {
+        type: GET_STATUS,
+        status
+    }
+}
 
 export const setPreloader = (status) => {
-    return{
+    return {
         type: SET_PRELOADER,
         status
     }
@@ -86,7 +100,23 @@ export const setCurrentUserPage = (userID) => {
         });
 
     }
-} 
+}
+export const getUserStatus = (userID) => {
+    return (dispatch) => {
+        currentUserData.getStatus(userID).then(response => {
+            dispatch(getStatus(response.data));
+        })
+    }
+}
+export const setStatusCarrentUser = (status) => {
+    return (dispatch) => {
+        currentUserData.setStatusCurrentUser(status).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(getStatus(status));
+            }
+        })
+    }
+}
 
 
 export default profileReducer;

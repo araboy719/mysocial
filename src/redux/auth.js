@@ -1,4 +1,4 @@
-import { authMe } from "./axios/requestApi";
+import {currentUserData } from "./axios/requestApi";
 
 const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
@@ -34,7 +34,7 @@ export const setCurrentProfile = (currentProfile) => {
 export const setCurrentUser = () => {
     
     return (dispatch) => {
-        authMe().then(response => {
+        currentUserData.authMe().then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(setCurrentProfile(response.data.data));
             }

@@ -7,7 +7,6 @@ import avatar from '../../../assets/img/avatar.jpg'
 
 
 const Profile = (props) => {
-    
     if(!props.profile){
         return <Preloader />
     }
@@ -22,7 +21,7 @@ const Profile = (props) => {
         
         <div className={s.content}>
             <img alt="avatar" src={props.profile.photos.large ? props.profile.photos.large : avatar }></img>
-            <ProfileStatus profile={props.profile} status="test:"/>
+            <ProfileStatus status={props.status} updateStatus={props.setStatusCarrentUser}/>
             <div>
                 <textarea ref={newPost} onChange={ChangePostText} value={props.newPostText}></textarea>
             </div>
