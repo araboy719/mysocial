@@ -3,7 +3,7 @@ import Post from './Post/Post';
 import s from './Posts.module.css';
 const Posts = (props) => {
 
-    let PostItem = props.posts.map(posts =><Post message ={posts.message} id={posts.id} profileImage={props.profileImage} />)
+    let PostItem = props.posts.map(posts =><Post  message ={posts.message} key={posts.id} profileImage={props.profileImage} />)
     return (
         <div className={s.posts}>
             {PostItem}

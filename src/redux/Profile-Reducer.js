@@ -1,7 +1,6 @@
 import { currentUserData, userAPI } from "./axios/requestApi";
 
 const ADD_POST = 'ADD_POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_PROFILE = 'SET_PROFILE';
 const SET_PRELOADER = 'SET_PRELOADER';
 const GET_STATUS = 'GET_STATUS';
@@ -23,18 +22,11 @@ const profileReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case ADD_POST: {
-            let postTextBody = state.newPostText;
             return {
                 ...state,
-                posts: [...state.posts, { id: 6, message: postTextBody }],
+                posts: [...state.posts, { id: 6, message: action.newPostBody }],
                 newPostText: '',
             };
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.text
-            }
         }
         case SET_PROFILE: {
             return {
@@ -60,15 +52,11 @@ const profileReducer = (state = initialState, action) => {
 
 }
 
-export const addNewPost = () => {
+export const addNewPost = (newPostBody) => {
+    debugger
     return {
         type: ADD_POST,
-    }
-}
-export const updateNewPostText = (text) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        text,
+        newPostBody
     }
 }
 export const setProfile = (profile) => {

@@ -2,21 +2,18 @@ import React from 'react';
 import Chat from './Chat/Chat';
 import Dialog from './Dialogs/Dialogs';
 import s from './Message.module.css';
+import MessageReduxForm from './MessageForm';
 
 
 const Message = (props) => {
+    const onSubmit =(formData) => {
+        props.SendMessage(formData.messageBody)
+    }
 
     let PageMessage = props.PageMessage;
     let DialogItems = PageMessage.dialogs.map(dialogs => <Dialog name={dialogs.name} id={dialogs.id} />);
 
     let ChatItem = PageMessage.chat.map(chat => <Chat text={chat.text} id={chat.id} />)
-
-    let CreateMessage = React.createRef();
-
-    let MessageOnchange = () => {
-        let text = CreateMessage.current.value;
-        props.changeTextMessage(text);
-    };
     return (
         <div className={s.content}>
             <div className={s.dialogs}>
@@ -26,16 +23,9 @@ const Message = (props) => {
                 {ChatItem}
             </div>
             <div className={s.text}>
-                <div>
-                    <textarea onChange={MessageOnchange} ref={CreateMessage} value={PageMessage.newMessage} />
-                </div>
-                <div>
-                    <button onClick={props.sendNewMessage}>SEND</button>
-                </div>
+                <MessageReduxForm onSubmit={onSubmit} />
             </div >
         </div >
-
     )
 }
-
 export default Message;

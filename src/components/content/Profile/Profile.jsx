@@ -4,17 +4,15 @@ import s from './Profile.module.css';
 import ProfileStatus from './ProfileInfo/ProfileStatus';
 import Preloader from '../../common/preloader/Preloader';
 import avatar from '../../../assets/img/avatar.jpg'
+import PostReduxForm from './PostForm';
 
 
 const Profile = (props) => {
     if(!props.profile){
         return <Preloader />
     }
-    let newPost = React.createRef();
-
-    let ChangePostText = () => {
-        let text = newPost.current.value;
-        props.updateNewPostText(text);
+    let onSubmit = (formData) => {
+        props.addNewPost(formData.newPostBody);
     }
 
     return (
@@ -22,13 +20,7 @@ const Profile = (props) => {
         <div className={s.content}>
             <img alt="avatar" src={props.profile.photos.large ? props.profile.photos.large : avatar }></img>
             <ProfileStatus status={props.status} updateStatus={props.setStatusCarrentUser}/>
-            <div>
-                <textarea ref={newPost} onChange={ChangePostText} value={props.newPostText}></textarea>
-            </div>
-            <div>
-                <button onClick={props.addNewPost}>Add New Post</button>
-            </div>
-            
+            <PostReduxForm onSubmit = {onSubmit} />
             <Posts posts={props.posts} profileImage={props.profile.photos.large ? props.profile.photos.large : avatar } />
         </div>
 
