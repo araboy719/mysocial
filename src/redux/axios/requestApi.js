@@ -33,7 +33,11 @@ export let currentUserData =  {
     },
     setStatusCurrentUser(statusString) {
         return instance.put("profile/status", {status: statusString  }).then(response => { return response })
+    },
+    login(email, password, rememberMe = false) {
+        return instance.post("auth/login", {email, password, rememberMe}).then(response => { return response })
+    },
+    logout() {
+        return instance.delete("auth/login").then(response => { return response })
     }
 }
-
-

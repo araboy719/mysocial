@@ -1,4 +1,4 @@
-import {currentUserData } from "./axios/requestApi";
+import { currentUserData } from "./axios/requestApi";
 
 const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
@@ -12,7 +12,7 @@ const authReducer = (state = initialState, action) => {
 
         case SET_CURRENT_USER: {
             return {
-                
+
                 ...state,
                 usersProfile: action.currentProfile,
                 loged: true,
@@ -32,13 +32,23 @@ export const setCurrentProfile = (currentProfile) => {
 }
 
 export const setCurrentUser = () => {
-    
+
     return (dispatch) => {
         currentUserData.authMe().then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(setCurrentProfile(response.data.data));
             }
         });
+    }
+}
+
+export const loginUser = (email, password, rememberMe) => {
+    return (dispatch) => {
+        currentUserData.login(email, password, rememberMe).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setCurrentProfile(response.data.data));
+            }
+        })
     }
 }
 

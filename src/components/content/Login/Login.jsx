@@ -1,11 +1,13 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { loginUser } from 'redux/auth';
 import s from './Login.module.css';
 
 
 const Login = (props) => {
+    
     const onSubmit =(formData) => {
-        console.log(formData);
+        loginUser(formData.login, formData.password, formData.rememberMe)
     }
     return (
         <div className={s.content}>
