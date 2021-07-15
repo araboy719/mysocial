@@ -1,13 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { loginUser } from 'redux/auth';
+import { login } from 'redux/auth';
 import s from './Login.module.css';
 
 
 const Login = (props) => {
     
     const onSubmit =(formData) => {
-        loginUser(formData.login, formData.password, formData.rememberMe)
+        debugger
+        props.login(formData.login, formData.password, formData.rememberMe)
     }
     return (
         <div className={s.content}>
@@ -35,4 +37,5 @@ const LoginForm = (props) => {
 }
 const ReduxLoginForm = reduxForm({form: 'login'})(LoginForm)
 
-export default Login;
+        
+export default connect(null, {login})(Login);

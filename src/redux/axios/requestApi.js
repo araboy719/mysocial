@@ -24,7 +24,7 @@ export const userAPI = {
     }
 }
 
-export let currentUserData =  {
+export const currentUserData =  {
     authMe() {
         return instance.get("auth/me").then(response => { return response })
     },
@@ -35,9 +35,10 @@ export let currentUserData =  {
         return instance.put("profile/status", {status: statusString  }).then(response => { return response })
     },
     login(email, password, rememberMe = false) {
-        return instance.post("auth/login", {email, password, rememberMe}).then(response => { return response })
+        debugger
+        return instance.post("auth/login", {email, password, rememberMe})
     },
     logout() {
-        return instance.delete("auth/login").then(response => { return response })
+        return instance.delete("auth/login")
     }
 }

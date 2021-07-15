@@ -31,25 +31,22 @@ export const setCurrentProfile = (currentProfile) => {
     }
 }
 
-export const setCurrentUser = () => {
-
-    return (dispatch) => {
+export const setCurrentUser = () => (dispatch) => {
         currentUserData.authMe().then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(setCurrentProfile(response.data.data));
             }
         });
     }
-}
 
-export const loginUser = (email, password, rememberMe) => {
-    return (dispatch) => {
-        currentUserData.login(email, password, rememberMe).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setCurrentProfile(response.data.data));
-            }
-        })
+    export const login = (email, password, rememberMe) => (dispatch) => {
+        currentUserData.login(email, password, rememberMe)
+            .then(response => {
+                debugger
+                if (response.data.resultCode === 0) {
+                    dispatch(setCurrentProfile())
+                }
+            });
     }
-}
 
 export default authReducer;
