@@ -21,3 +21,6 @@
 .paginator {
   max-width: 100px;
 }
+.paginator span.selectedPage{
+  font-weight: 900;
+}

@@ -4,7 +4,7 @@ import avatar from '../../../assets/img/avatar.jpg'
 import Preloader from '../../common/preloader/Preloader';
 import { NavLink } from 'react-router-dom';
 
-let Users = (props) => {    
+let Users = (props) => { 
     let countOfPages = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= countOfPages; i++) {
@@ -14,7 +14,7 @@ let Users = (props) => {
         {props.isPreloader ? <Preloader /> : null}
         <div className={s.paginator}>
             {pages.map(p => {
-                return <span onClick={(e) => { props.onPageChanged(p) }} key={p} >{p}</span>
+                return <span className={props.currentPage === p && s.selectedPage} onClick={(e) => { props.onPageChanged(p) }} key={p} >{p}</span>
             })}
         </div>
 

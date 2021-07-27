@@ -134,6 +134,7 @@ export const setFollowingInprogress = (followingProgress, userID) => {
 export const getUsersThunkCreator = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(setPreloader(true));
+        dispatch(setCurrentPage(currentPage));
         userAPI.setNewUsers(currentPage, pageSize).then(data => {
             dispatch(setUsers(data.items));
             dispatch(setTotalCount(data.totalCount));
