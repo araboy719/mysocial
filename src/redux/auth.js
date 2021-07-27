@@ -44,7 +44,7 @@ export const setCurrentUser = () => (dispatch) => {
             .then(response => {
                 debugger
                 if (response.data.resultCode === 0) {
-                    dispatch(setCurrentProfile())
+                    dispatch(setCurrentUser())
                 }
             });
     }
