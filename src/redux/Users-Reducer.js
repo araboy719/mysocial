@@ -22,7 +22,6 @@ const usersReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case FOLLOW: {
-            debugger
             return {
                 ...state,
                 users: state.users.map(u => {
@@ -35,7 +34,6 @@ const usersReducer = (state = initialState, action) => {
             }
         }
         case UNFOLLOW: {
-            debugger
             return {
                 ...state,
                 users: state.users.map(u => {
@@ -86,14 +84,12 @@ const usersReducer = (state = initialState, action) => {
 }
 
 export const follow = (idUser) => {
-    debugger
     return {
         type: FOLLOW,
         userID: idUser
     }
 }
 export const unfollow = (idUser) => {
-    debugger
     return {
         type: UNFOLLOW,
         userID: idUser

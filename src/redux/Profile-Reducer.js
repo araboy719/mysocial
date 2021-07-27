@@ -53,7 +53,7 @@ const profileReducer = (state = initialState, action) => {
 }
 
 export const addNewPost = (newPostBody) => {
-    debugger
+
     return {
         type: ADD_POST,
         newPostBody

@@ -55,7 +55,6 @@ export const login = (email, password, rememberMe, isAuth) => (dispatch) => {
 }
 
 export const logOut = () => (dispatch) => {
-    debugger
     currentUserData.logout()
         .then(response => {
             if (response.data.resultCode === 0) {
