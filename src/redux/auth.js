@@ -1,21 +1,22 @@
+import { stopSubmit } from "redux-form";
 import { currentUserData } from "./axios/requestApi";
 
 const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
-const initialState = {
-    usersProfile: null,
-    loged: false,
-}
+let initialState = {
+    userId: null,
+    email: null,
+    login: null,
+    isAuth: false
+};
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case SET_CURRENT_USER: {
             return {
-
                 ...state,
-                usersProfile: action.currentProfile,
-                loged: true,
+                ...action.payload
             }
         }
         default:
@@ -24,29 +25,44 @@ const authReducer = (state = initialState, action) => {
 
 }
 
-export const setCurrentProfile = (currentProfile) => {
+export const setCurrentProfile = (userId, login, email, isAuth) => {
     return {
         type: SET_CURRENT_USER,
-        currentProfile
-    }
+        payload: { userId, email, login, isAuth }
+    };
 }
 
 export const setCurrentUser = () => (dispatch) => {
-        currentUserData.authMe().then(response => {
+    currentUserData.authMe().then(response => {
+        if (response.data.resultCode === 0) {
+            let { id, login, email } = response.data.data
+            dispatch(setCurrentProfile(id, login, email, true));
+        }
+    });
+}
+
+export const login = (email, password, rememberMe, isAuth) => (dispatch) => {
+    currentUserData.login(email, password, rememberMe)
+    
+        .then(response => {
+            debugger
+        if (response.data.resultCode === 0) {
+            dispatch(setCurrentUser())
+        } else {
+            let message = response.data.messages && response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error';
+            dispatch(stopSubmit('login', { _error: message }))
+        }
+    });
+}
+
+export const logOut = () => (dispatch) => {
+    currentUserData.logout()
+        .then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(setCurrentProfile(response.data.data));
+                dispatch(setCurrentProfile(null, null, null, false))
             }
         });
-    }
+}
 
-    export const login = (email, password, rememberMe) => (dispatch) => {
-        currentUserData.login(email, password, rememberMe)
-            .then(response => {
-                debugger
-                if (response.data.resultCode === 0) {
-                    dispatch(setCurrentUser())
-                }
-            });
-    }
 
 export default authReducer;

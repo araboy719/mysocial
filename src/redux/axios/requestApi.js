@@ -35,7 +35,6 @@ export const currentUserData =  {
         return instance.put("profile/status", {status: statusString  }).then(response => { return response })
     },
     login(email, password, rememberMe = false) {
-        debugger
         return instance.post("auth/login", {email, password, rememberMe})
     },
     logout() {

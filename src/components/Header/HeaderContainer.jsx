@@ -15,8 +15,7 @@ class HeaderContainerAPI extends React.Component {
 }
 let mapStateToProps = (state) =>{
     return{
-        userData: state.authData.usersProfile,
-        loged: state.authData.loged
+        login: state.authData.login
     }
 
 }
