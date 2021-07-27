@@ -4,9 +4,15 @@ import s from './Header.module.css';
 
 
 const Header = (props) => {
+    const logoutSubmit = () => {
+        props.logOut();
+    }
+
     return (
         <header className={s.header} >
-            { props.profile.login ? <NavLink  to="/profile" >{props.profile.login}</NavLink> : <NavLink to="/login" activeClassName={s.active}>Login</NavLink>}
+            { props.login ? 
+                <div><NavLink  to="/profile" >{props.login}</NavLink><button onClick={() => logoutSubmit()}>logout</button></div> :
+                <NavLink to="/login" activeClassName={s.active}>Login</NavLink>}
         </header>
     )
 }

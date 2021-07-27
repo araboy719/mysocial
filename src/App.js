@@ -1,31 +1,50 @@
+import Preloader from "components/common/preloader/Preloader";
 import Login from "components/content/Login/Login";
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { BrowserRouter, Route, withRouter } from "react-router-dom";
+import { compose } from "redux";
 import './App.css';
 import MessageContainer from "./components/content/Message/MessageContainer";
 import ProfileContainer from "./components/content/Profile/ProfileContainer";
 import UsersContainer from "./components/content/Users/UsersContainer";
 import HeaderComponent from './components/Header/HeaderContainer';
 import Navbar from "./components/Navbar/Navbar";
+import { initializeApp } from './redux/App-Reducer';
 
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <div className="app-wrapper">
-        <HeaderComponent />
+class App extends React.Component {
+  componentDidMount() {
+    this.props.initializeApp();
+  }
 
-        <Navbar />
-        <Route path='/profile/:userID?' render={() => <ProfileContainer />} />
+  render() {
+    if (!this.props.initialized) {
+      return <Preloader />
+    }
 
-        <Route path='/dialogs' render={() => <MessageContainer />} />
+    return (
+      <BrowserRouter>
+        <div className="app-wrapper">
+          <HeaderComponent />
+          <Navbar />
+          <Route path='/profile/:userID?' render={() => <ProfileContainer />} />
+          <Route path='/dialogs' render={() => <MessageContainer />} />
+          <Route path='/users' render={() => <UsersContainer />} />
 
-        <Route path='/users' render={() => <UsersContainer />} />
-        
-        <Route path='/login' render={() => <Login />} />
-      </div>
-    </BrowserRouter>
-  );
+          <Route path='/login' render={() => <Login />} />
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
-export default App;
+let mapStateToProps = (state) => {
+  return {
+    initialized: state.AppData.initialized
+  }
+}
+
+export default compose(
+  connect(mapStateToProps, { initializeApp })
+)(App);

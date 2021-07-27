@@ -33,7 +33,7 @@ export const setCurrentProfile = (userId, login, email, isAuth) => {
 }
 
 export const setCurrentUser = () => (dispatch) => {
-    currentUserData.authMe().then(response => {
+    return currentUserData.authMe().then(response => {
         if (response.data.resultCode === 0) {
             let { id, login, email } = response.data.data
             dispatch(setCurrentProfile(id, login, email, true));
@@ -45,7 +45,6 @@ export const login = (email, password, rememberMe, isAuth) => (dispatch) => {
     currentUserData.login(email, password, rememberMe)
     
         .then(response => {
-            debugger
         if (response.data.resultCode === 0) {
             dispatch(setCurrentUser())
         } else {
@@ -56,6 +55,7 @@ export const login = (email, password, rememberMe, isAuth) => (dispatch) => {
 }
 
 export const logOut = () => (dispatch) => {
+    debugger
     currentUserData.logout()
         .then(response => {
             if (response.data.resultCode === 0) {

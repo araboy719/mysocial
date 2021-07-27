@@ -3,23 +3,23 @@ import { required } from 'components/common/FormsControls/validate';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { login, logOut } from 'redux/auth';
+import { login } from 'redux/auth';
 import s from './Login.module.css';
 import formStyle from '../../common/FormsControls/FormStyle.module.css';
+import { Redirect } from 'react-router-dom';
 
 
 const Login = (props) => {
     const onSubmit = (formData) => {
         props.login(formData.email, formData.password, formData.rememberMe);
     }
-    const logoutSubmit = () => {
-        props.logOut();
+    if (props.isAuth) {
+        return <Redirect to={"/profile"} />
     }
     return (
         <div className={s.content}>
             <h1>Login</h1>
             <ReduxLoginForm onSubmit={onSubmit} />
-            <button onClick={() => logoutSubmit()}>logout</button>
         </div >
 
     )
@@ -47,5 +47,10 @@ const LoginForm = (props) => {
 }
 const ReduxLoginForm = reduxForm({ form: 'login' })(LoginForm)
 
+const mapStateToProps = (state) => {
+    return {
+        isAuth: state.authData.isAuth
+    }
+}
 
-export default connect(null, { login, logOut })(Login);
+export default connect(mapStateToProps, { login})(Login);
