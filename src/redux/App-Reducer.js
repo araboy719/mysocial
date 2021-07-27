@@ -24,7 +24,7 @@ const appReducer = (state = initialState, action) => {
 export const initializedSuccses = () => ({ type: SET_INITIALIZED});
 
 export const initializeApp = () =>  (dispatch) => {
-    let promise = dispatch(setCurrentUser);
+    let promise = dispatch(setCurrentUser());
     // let promise = dispatch(setCurrentUser);
     // let promise = dispatch(setCurrentUser);
     Promise.all([promise]).then(() => {
